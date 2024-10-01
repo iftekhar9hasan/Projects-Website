@@ -50,10 +50,40 @@
             >
               Github
             </button>
-            <a href="assets/Group-Project-1.zip" class="btn btn-color-2 project-btn" download>
+            <a href="assets/Group Project 1.zip" class="btn btn-color-2 project-btn" id="downloadBtn">
               Download
-          </a>
+            </a>
           </div>
+          
+          <!-- Modal for custom acknowledgment -->
+          <div id="customModal" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+            <div style="background-color: white; padding: 20px; margin: 10% auto; width: 50%; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">
+              <h2 style="font-size: 24px; font-weight: bold; text-align: center;">User Agreement</h2>
+              <p style="font-size: 16px; text-align: justify;">
+                End User License Agreement (EULA)
+          
+          Data Privacy: Your personal data is kept secure, but Forestview is not responsible for security breaches beyond their control.<br><br>
+          
+          Sharing the Application: You cannot copy, share, sell, or distribute the application or its data without written permission from Forestview. Sharing login details or data is prohibited.<br><br>
+          
+          Using the App: You are not allowed to sell or distribute data from the app without permission. Misuse may lead to legal action.<br><br>
+          
+          Indemnity: You agree to protect Forestview from legal claims or damages caused by your use of the app. Forestview is not liable for security incidents.<br><br>
+          
+          Security Measures: Forestview regularly monitors for security vulnerabilities and may update practices as threats and technology evolve.<br><br>
+          
+          Compliance: The app adheres to industry security standards, which may change as laws and technology progress.<br><br>
+          
+          By using the app, you agree to the terms. If you disagree, you should stop using it.
+              </p>
+              <p style="font-size: 16px; text-align: center;">I agree to download the file.</p>
+              <div style="text-align: center; margin-top: 20px;">
+                <button id="agreeBtn" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">I Agree</button>
+                <button id="cancelBtn" style="padding: 10px 20px; font-size: 16px; cursor: pointer; margin-left: 10px;">Cancel</button>
+              </div>
+            </div>
+          </div>
+          
         </div>
         <div class="details-container color-container">
           <div class="article-container">
@@ -138,5 +168,25 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <script src="app.js"></script>
+
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default download action
+  
+      // Show the custom modal
+      document.getElementById('customModal').style.display = 'block';
+    });
+  
+    document.getElementById('agreeBtn').addEventListener('click', function () {
+      // If the user agrees, trigger the download
+      document.getElementById('customModal').style.display = 'none'; // Close the modal
+      window.location.href = document.getElementById('downloadBtn').href; // Trigger the download
+    });
+  
+    document.getElementById('cancelBtn').addEventListener('click', function () {
+      // If the user cancels, close the modal
+      document.getElementById('customModal').style.display = 'none';
+    });
+  </script>
 </body>
 </html>

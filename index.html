@@ -148,6 +148,32 @@
 
   <script src="app.js"></script>
 
+  <script src="server.js"></script>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyD_8RCnEz57YRH9oR3AT8SRQkJUQpW4BAo",
+      authDomain: "csc4110-g8.firebaseapp.com",
+      projectId: "csc4110-g8",
+      storageBucket: "csc4110-g8.firebasestorage.app",
+      messagingSenderId: "647012485967",
+      appId: "1:647012485967:web:04c04334e8a951038a133a",
+      measurementId: "G-VS645S68HH"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+
   <script>
     document.getElementById('downloadBtn').addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default download action

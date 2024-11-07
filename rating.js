@@ -41,7 +41,7 @@ submitBtn.addEventListener("click", () => {
     };
 
     // Send review data to the backend to save in S3
-    fetch('http://localhost:3000/save_review', {
+    fetch('projects-website-sjh9.vercel.app/save_review', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

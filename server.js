@@ -4,6 +4,10 @@ const app = express();
 const bucketName = 'nilaychowdhury'; // Replace with your bucket name
 const fileName = 'reviews.json'; // The name of the file in S3
 
+// cors
+const cors = require('cors');
+app.use(cors({ origin: 'https://csc4110-group8.netlify.app/' }));
+
 /// Configure AWS SDK with hard-coded credentials
 const s3 = new AWS.S3({
     accessKeyId: 'AKIA23WHT42ZWMFJTMGE',  // Replace with your AWS Access Key ID

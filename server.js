@@ -1,14 +1,14 @@
 const express = require('express');
 const AWS = require('aws-sdk');
+const cors = require('cors'); // Move this line up to import cors correctly
+
 const app = express();
-const bucketName = 'nilaychowdhury'; // Replace with your bucket name
+const bucketName = 'nilaychowdhury'; 
 const fileName = 'reviews.json'; // The name of the file in S3
 
-// cors
-const cors = require('cors');
-app.use(cors({ origin: 'https://csc4110-group8.netlify.app/' }));
+app.use(cors({ origin: 'https://csc4110-group8.netlify.app/' })); // Configure CORS here
 
-/// Configure AWS SDK with hard-coded credentials
+// Configure AWS SDK with hard-coded credentials
 const s3 = new AWS.S3({
     accessKeyId: 'AKIA23WHT42ZWMFJTMGE',  // Replace with your AWS Access Key ID
     secretAccessKey: 'ZxQYlV+R/bBulNjm/xLeU9kcunmk0AOgpkJ2/lr4',  // Replace with your AWS Secret Access Key

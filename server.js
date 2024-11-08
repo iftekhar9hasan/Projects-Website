@@ -1,12 +1,16 @@
 const express = require('express');
 const AWS = require('aws-sdk');
-const cors = require('cors'); // Move this line up to import cors correctly
+const cors = require('cors');
 
 const app = express();
+const port = process.env.PORT || 3000; // Use PORT environment variable or default to 3000
+
+// S3 bucket details
 const bucketName = 'nilaychowdhury'; 
 const fileName = 'reviews.json'; // The name of the file in S3
 
-app.use(cors({ origin: 'https://csc4110-group8.netlify.app/' })); // Configure CORS here
+// Configure CORS for the specified origin
+app.use(cors({ origin: 'https://csc4110-group8.netlify.app/' }));
 
 // Configure AWS SDK with hard-coded credentials
 const s3 = new AWS.S3({
@@ -58,6 +62,7 @@ app.get('/get_reviews', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+// Start the server on the specified port
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });

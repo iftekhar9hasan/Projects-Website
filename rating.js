@@ -27,7 +27,7 @@ stars.forEach((star) => {
 });
 
 submitBtn.addEventListener("click", () => {
-    const review = reviewText.value;
+    const review = reviewText.value.trim();
     const userRating = parseInt(rating.innerText);
 
     if (!userRating || !review) {
@@ -54,6 +54,7 @@ submitBtn.addEventListener("click", () => {
     })
     .then(data => {
         alert(data.message || 'Review saved successfully!');
+        displayThankYouMessage(userRating);
         displayReviews(); // Refresh the reviews after saving
     })
     .catch(error => {
@@ -61,6 +62,16 @@ submitBtn.addEventListener("click", () => {
         alert('There was an error saving your review. Please try again.');
     });
 });
+
+function displayThankYouMessage(userRating) {
+    const card = document.querySelector(".card");
+    card.innerHTML = `
+        <div class="thank-you-icon"></div>
+        <p class="selected-stars">You selected ${userRating} out of 5</p>
+        <h1 class="thank-you">Thank you!</h1>
+        <p class="appreciation">We appreciate you taking the time to give a rating. If you ever need more support, don’t hesitate to get in touch!</p>
+    `;
+}
 
 function getStarColorClass(value) {
     switch (value) {

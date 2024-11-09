@@ -3,8 +3,6 @@ const rating = document.getElementById("rating");
 const reviewText = document.getElementById("review");
 const submitBtn = document.getElementById("submit");
 const reviewsContainer = document.getElementById("reviews");
-const card = document.querySelector(".card");
-const feedbackMessage = document.getElementById("feedbackMessage");
 
 stars.forEach((star) => {
     star.addEventListener("click", () => {
@@ -29,15 +27,11 @@ stars.forEach((star) => {
 });
 
 submitBtn.addEventListener("click", () => {
-    const review = reviewText.value.trim();
+    const review = reviewText.value;
     const userRating = parseInt(rating.innerText);
 
-    // Clear any existing feedback message
-    feedbackMessage.className = "hidden";
-    feedbackMessage.innerText = "";
-
     if (!userRating || !review) {
-        showFeedbackMessage("Please select a rating and provide a review before submitting.", "error");
+        alert("Please select a rating and provide a review before submitting.");
         return;
     }
 
@@ -55,25 +49,22 @@ submitBtn.addEventListener("click", () => {
         body: JSON.stringify(reviewData)
     })
     .then(response => {
-        console.log("Response:", response);  // Log response for debugging
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     })
     .then(data => {
-        console.log("Data:", data);  // Log data for debugging
-        showFeedbackMessage(data.message || 'Review saved successfully!', "success");
+        alert(data.message || 'Review saved successfully!');
         displayReviews(); // Refresh the reviews after saving
-        displayThankYouMessage(userRating); // Display the thank-you message
     })
     .catch(error => {
         console.error('Error saving review:', error);
-        showFeedbackMessage('There was an error saving your review. Please try again.', "error");
+        alert('There was an error saving your review. Please try again.');
     });
 });
 
 function getStarColorClass(value) {
     switch (value) {
-        case 1:    
+        case 1:
             return "one";
         case 2:
             return "two";
@@ -106,24 +97,9 @@ function displayReviews() {
         })
         .catch(error => {
             console.error('Error fetching reviews:', error);
-            showFeedbackMessage('There was an error loading reviews. Please try again later.', "error");
+            alert('There was an error loading reviews. Please try again later.');
         });
 }
 
 // Call displayReviews on page load to load the reviews from S3
 document.addEventListener('DOMContentLoaded', displayReviews);
-
-function displayThankYouMessage(userRating) {
-    card.innerHTML = `
-        <div class="thank-you-icon"></div>
-        <p class="selected-stars">You selected ${userRating} out of 5</p>
-        <h1 class="thank-you">Thank you!</h1>
-        <p class="appreciation">We appreciate you taking the time to give a rating. If you ever need more support, don’t hesitate to get in touch!</p>
-    `;
-}
-
-function showFeedbackMessage(message, type) {
-    feedbackMessage.classList.remove("hidden");
-    feedbackMessage.classList.add(type === "error" ? "feedback-error" : "feedback-success");
-    feedbackMessage.innerText = message;
-}

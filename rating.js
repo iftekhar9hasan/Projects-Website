@@ -29,15 +29,15 @@ stars.forEach((star) => {
 });
 
 submitBtn.addEventListener("click", () => {
-    const review = reviewText.value.trim();  // Trim whitespace from the review
+    const review = reviewText.value.trim();
     const userRating = parseInt(rating.innerText);
 
+    // Clear any existing feedback message
     feedbackMessage.className = "hidden";
     feedbackMessage.innerText = "";
 
-    // Check if the rating is selected and review text is not empty or whitespace
     if (!userRating || !review) {
-        showFeedbackMessage("Please select a rating and provide a meaningful review before submitting.", "error");
+        showFeedbackMessage("Please select a rating and provide a review before submitting.", "error");
         return;
     }
 
@@ -46,6 +46,7 @@ submitBtn.addEventListener("click", () => {
         review: review
     };
 
+    // Send review data to the backend to save in S3
     fetch('https://projects-website-review.onrender.com/save_review', {
         method: 'POST',
         headers: {
@@ -54,27 +55,21 @@ submitBtn.addEventListener("click", () => {
         body: JSON.stringify(reviewData)
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+        console.log("Response:", response);  // Log response for debugging
+        if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     })
     .then(data => {
-        if (data && data.message) {
-            showFeedbackMessage(data.message, "success");
-        } else {
-            showFeedbackMessage('Review saved successfully!', "success");
-        }
-        displayReviews();  // Refresh the reviews after saving
-        displayThankYouMessage(userRating);  // Display the thank-you message
+        console.log("Data:", data);  // Log data for debugging
+        showFeedbackMessage(data.message || 'Review saved successfully!', "success");
+        displayReviews(); // Refresh the reviews after saving
+        displayThankYouMessage(userRating); // Display the thank-you message
     })
     .catch(error => {
         console.error('Error saving review:', error);
         showFeedbackMessage('There was an error saving your review. Please try again.', "error");
     });
 });
-
-
 
 function getStarColorClass(value) {
     switch (value) {

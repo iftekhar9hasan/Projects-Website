@@ -421,15 +421,24 @@ h1 {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 } */
 
-input {
+/* input  {
   background-color: transparent;
   border: none;
   outline: none;
   padding: 6px 4px;
   color: rgb(131, 23, 23);
   font-size: 16px;
+} */
+
+#review input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 button {

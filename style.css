@@ -452,7 +452,7 @@ button:hover {
   margin: 0;
 }
 
-#feedbackMessage {
+.feedbackMessage {
   padding: 10px;
   border-radius: 5px;
   margin: 15px 0;

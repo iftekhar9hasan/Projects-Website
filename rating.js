@@ -32,7 +32,6 @@ submitBtn.addEventListener("click", () => {
     const review = reviewText.value.trim();
     const userRating = parseInt(rating.innerText);
 
-    // Clear any existing feedback message
     feedbackMessage.className = "hidden";
     feedbackMessage.innerText = "";
 
@@ -46,7 +45,6 @@ submitBtn.addEventListener("click", () => {
         review: review
     };
 
-    // Send review data to the backend to save in S3
     fetch('https://projects-website-review.onrender.com/save_review', {
         method: 'POST',
         headers: {
@@ -55,21 +53,30 @@ submitBtn.addEventListener("click", () => {
         body: JSON.stringify(reviewData)
     })
     .then(response => {
-        console.log("Response:", response);  // Log response for debugging
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
+        console.log("Raw Response Status:", response.status);  // Log the status code
+        console.log("Raw Response Text:", response.statusText);  // Log the status text
+        return response.text();  // Get raw text to inspect what’s returned
     })
-    .then(data => {
-        console.log("Data:", data);  // Log data for debugging
-        showFeedbackMessage(data.message || 'Review saved successfully!', "success");
-        displayReviews(); // Refresh the reviews after saving
-        displayThankYouMessage(userRating); // Display the thank-you message
+    .then(responseText => {
+        console.log("Full Response Body:", responseText);  // Log full response body
+        // Attempt to parse as JSON (if response is JSON)
+        try {
+            const data = JSON.parse(responseText);
+            showFeedbackMessage(data.message || 'Review saved successfully!', "success");
+            displayReviews();  // Refresh the reviews after saving
+            displayThankYouMessage(userRating);  // Display the thank-you message
+        } catch (error) {
+            // If JSON parsing fails, show response text directly (for debugging)
+            console.error("JSON Parse Error:", error);
+            showFeedbackMessage('Unexpected response format. Please check your backend response.', "error");
+        }
     })
     .catch(error => {
         console.error('Error saving review:', error);
         showFeedbackMessage('There was an error saving your review. Please try again.', "error");
     });
 });
+
 
 function getStarColorClass(value) {
     switch (value) {

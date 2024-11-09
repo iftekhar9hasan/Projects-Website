@@ -4,6 +4,31 @@ const reviewText = document.getElementById("review");
 const submitBtn = document.getElementById("submit");
 const reviewsContainer = document.getElementById("reviews");
 
+// Function to show styled notifications
+function showNotification(message, type = 'success') {
+    const notification = document.getElementById("feedbackMessage");
+    notification.innerText = message;
+
+    // Clear previous classes and add "show" class
+    notification.classList.remove("hidden", "error", "warning", "success");
+    notification.classList.add("show");
+
+    // Add type-specific class
+    if (type === 'error') {
+        notification.classList.add("error");
+    } else if (type === 'warning') {
+        notification.classList.add("warning");
+    } else {
+        notification.classList.add("success");
+    }
+
+    // Hide notification after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove("show");
+        notification.classList.add("hidden");
+    }, 3000);
+}
+
 stars.forEach((star) => {
     star.addEventListener("click", () => {
         const value = parseInt(star.getAttribute("data-value"));
@@ -31,7 +56,7 @@ submitBtn.addEventListener("click", () => {
     const userRating = parseInt(rating.innerText);
 
     if (!userRating || !review) {
-        alert("Please select a rating and provide a review before submitting.");
+        showNotification("Please select a rating and provide a review before submitting.", 'warning');
         return;
     }
 
@@ -53,32 +78,12 @@ submitBtn.addEventListener("click", () => {
         return response.json();
     })
     .then(data => {
-        // alert(data.message || 'Review saved successfully!');
-        function showNotification(message) {
-            const notification = document.getElementById("feedbackMessage");
-            notification.innerText = message;
-            notification.classList.remove("hidden");
-            notification.classList.add("show");
-
-            if (isError) {
-                notification.classList.add("error");
-            } else {
-                notification.classList.remove("error");
-            }
-        }
-        
-        
-        // Use the function to show the notification
         showNotification(data.message || 'Review saved successfully!');
-        
-
-
-
         displayReviews(); // Refresh the reviews after saving
     })
     .catch(error => {
         console.error('Error saving review:', error);
-        showNotification('There was an error saving your review. Please try again.');
+        showNotification('There was an error saving your review. Please try again.', 'error');
     });
 });
 
@@ -117,7 +122,7 @@ function displayReviews() {
         })
         .catch(error => {
             console.error('Error fetching reviews:', error);
-            alert('There was an error loading reviews. Please try again later.');
+            showNotification('There was an error loading reviews. Please try again later.', 'error');
         });
 }
 

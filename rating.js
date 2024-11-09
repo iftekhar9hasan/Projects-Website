@@ -59,13 +59,14 @@ submitBtn.addEventListener("click", () => {
             notification.innerText = message;
             notification.classList.remove("hidden");
             notification.classList.add("show");
-        
-            // Hide the notification after 3 seconds
-            // setTimeout(() => {
-            //     notification.classList.remove("show");
-            //     notification.classList.add("hidden");
-            // }, 3000);
+
+            if (isError) {
+                notification.classList.add("error");
+            } else {
+                notification.classList.remove("error");
+            }
         }
+        
         
         // Use the function to show the notification
         showNotification(data.message || 'Review saved successfully!');
@@ -77,7 +78,7 @@ submitBtn.addEventListener("click", () => {
     })
     .catch(error => {
         console.error('Error saving review:', error);
-        alert('There was an error saving your review. Please try again.');
+        showNotification('There was an error saving your review. Please try again.');
     });
 });
 

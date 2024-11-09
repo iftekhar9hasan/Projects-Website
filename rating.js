@@ -1,52 +1,52 @@
-const card = document.querySelector(".card");
-const numbers = document.querySelector(".numbers");
+const stars = document.querySelectorAll(".star");
+const rating = document.getElementById("rating");
+const reviewText = document.getElementById("review");
 const submitBtn = document.getElementById("submit");
 const reviewsContainer = document.getElementById("reviews");
+const card = document.querySelector(".card");
 const feedbackMessage = document.getElementById("feedbackMessage");
 
-const dots = document.querySelectorAll(".dot");
-let selectedRating = 0;
+stars.forEach((star) => {
+    star.addEventListener("click", () => {
+        const value = parseInt(star.getAttribute("data-value"));
+        rating.innerText = value;
 
-// Add event listener to each rating dot
-dots.forEach((dot) => {
-  dot.addEventListener("click", function () {
-    // Clear previous selections
-    dots.forEach((dot) => dot.classList.remove("selected"));
-    this.classList.add("selected");
+        // Remove all existing classes from stars
+        stars.forEach((s) => s.classList.remove("one", "two", "three", "four", "five"));
 
-    // Update selected rating and styles for selected dot
-    selectedRating = parseInt(this.textContent);
-    dots.forEach(dot => {
-      if(dot.classList.contains('selected')) {
-        dot.style.backgroundColor = 'var(--Light-Grey)';
-        dot.style.color = 'white';
-      } else {
-        dot.style.backgroundColor = 'hsl(213, 10%, 21%)';
-        dot.style.color = 'var(--Light-Grey)';
-      }
+        // Add the appropriate class to each star based on the selected star's value
+        stars.forEach((s, index) => {
+            if (index < value) {
+                s.classList.add(getStarColorClass(value));
+            }
+        });
+
+        // Remove "selected" class from all stars
+        stars.forEach((s) => s.classList.remove("selected"));
+        // Add "selected" class to the clicked star
+        star.classList.add("selected");
     });
-  });
 });
 
 submitBtn.addEventListener("click", () => {
-    const review = document.getElementById("review").value.trim();
+    const review = reviewText.value.trim();
+    const userRating = parseInt(rating.innerText);
 
     // Clear any existing feedback message
     feedbackMessage.className = "hidden";
     feedbackMessage.innerText = "";
 
-    // Validation
-    if (!selectedRating || !review) {
+    if (!userRating || !review) {
         showFeedbackMessage("Please select a rating and provide a review before submitting.", "error");
         return;
     }
 
     const reviewData = {
-        rating: selectedRating,
+        rating: userRating,
         review: review
     };
 
-    // Send review data to the backend to save in S3 or `reviews.json`
+    // Send review data to the backend to save in S3
     fetch('https://projects-website-review.onrender.com/save_review', {
         method: 'POST',
         headers: {
@@ -55,13 +55,15 @@ submitBtn.addEventListener("click", () => {
         body: JSON.stringify(reviewData)
     })
     .then(response => {
+        console.log("Response:", response);  // Log response for debugging
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     })
     .then(data => {
+        console.log("Data:", data);  // Log data for debugging
         showFeedbackMessage(data.message || 'Review saved successfully!', "success");
-        displayReviews();  // Refresh the reviews after saving
-        displayThankYouMessage(selectedRating);  // Display the thank-you message
+        displayReviews(); // Refresh the reviews after saving
+        displayThankYouMessage(userRating); // Display the thank-you message
     })
     .catch(error => {
         console.error('Error saving review:', error);
@@ -69,25 +71,32 @@ submitBtn.addEventListener("click", () => {
     });
 });
 
-// Display a thank-you message
-function displayThankYouMessage(rating) {
-    card.innerHTML = `
-        <div class="thank-you-icon"></div>
-        <p class="selected-stars">You selected ${rating} out of 5</p>
-        <h1 class="thank-you">Thank you!</h1>
-        <p class="appreciation">We appreciate you taking the time to give a rating. If you ever need more support, don’t hesitate to get in touch!</p>
-    `;
+function getStarColorClass(value) {
+    switch (value) {
+        case 1:    
+            return "one";
+        case 2:
+            return "two";
+        case 3:
+            return "three";
+        case 4:
+            return "four";
+        case 5:
+            return "five";
+        default:
+            return "";
+    }
 }
 
-// Fetch and display reviews from the backend
 function displayReviews() {
+    // Fetch reviews from the backend, which retrieves them from S3
     fetch('https://projects-website-review.onrender.com/get_reviews')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
         })
         .then(reviews => {
-            reviewsContainer.innerHTML = '';  // Clear current reviews
+            reviewsContainer.innerHTML = ''; // Clear current reviews
             reviews.forEach(review => {
                 const reviewElement = document.createElement("div");
                 reviewElement.classList.add("review");
@@ -101,10 +110,18 @@ function displayReviews() {
         });
 }
 
-// Call displayReviews on page load to load the reviews from S3 or `reviews.json`
+// Call displayReviews on page load to load the reviews from S3
 document.addEventListener('DOMContentLoaded', displayReviews);
 
-// Display feedback message for validation or success
+function displayThankYouMessage(userRating) {
+    card.innerHTML = `
+        <div class="thank-you-icon"></div>
+        <p class="selected-stars">You selected ${userRating} out of 5</p>
+        <h1 class="thank-you">Thank you!</h1>
+        <p class="appreciation">We appreciate you taking the time to give a rating. If you ever need more support, don’t hesitate to get in touch!</p>
+    `;
+}
+
 function showFeedbackMessage(message, type) {
     feedbackMessage.classList.remove("hidden");
     feedbackMessage.classList.add(type === "error" ? "feedback-error" : "feedback-success");

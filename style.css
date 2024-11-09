@@ -361,7 +361,7 @@ footer p {
 }
 
 /* User rating anf reviews */
-#userRate {
+/* #userRate {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -370,7 +370,7 @@ footer p {
   align-items: center;
 }
 .container {
-  /* background-color: white; */
+  background-color: white;
   padding: 10px;
   text-align: center;
   width: 400px;
@@ -471,4 +471,135 @@ button:hover {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
+} */
+
+/* rateANdreview */
+
+:root {
+  --Orange: hsl(25, 97%, 53%);
+  --White: hsl(0, 0%, 100%);
+  --Light-Grey: hsl(217, 12%, 63%);
+  --Medium-Grey: hsl(216, 12%, 54%);
+  --Dark-Blue: hsl(213, 19%, 18%);
+  --Very-Dark-Blue: hsl(216, 12%, 8%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Overpass", sans-serif;
+  background-color: var(--Very-Dark-Blue);
+  /* font-size  (paragraph): 15px; */
+  /* font-weight: 400 , 700; */
+}
+
+.card {
+  width: 350px;
+  height: 380px;
+  background-color: var(--Dark-Blue);
+  padding: 15px;
+  margin: 50px auto;
+  border-radius: 8px;
+}
+
+.star-icon {
+  background-image: url(./images/icon-star.svg);
+  background-position: center;
+  width: 17px;
+  height: 16px;
+  margin-top: 10px;
+  background-repeat: no-repeat;
+}
+
+h1 {
+  color: white;
+  margin: 10px 0;
+  text-align: left;
+}
+
+p {
+  color: var(--Medium-Grey);
+  line-height: 1.6rem;
+  text-align: left;
+}
+
+.numbers {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dot {
+  height: 45px;
+  width: 45px;
+  background-color: hsl(213, 10%, 21%);
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+  align-items: center;
+  color: var(--Light-Grey);
+  line-height: 45px;
+  cursor: pointer;
+}
+
+.dot:hover {
+  background-color: var(--Orange);
+  color: white;
+}
+
+button {
+  color: white;
+  background-color: var(--Orange);
+  padding: 15px;
+  width: 90%;
+  border: none;
+  border-radius: 24px;
+  margin: 0 auto; /* Center the button horizontally */
+  display: block;
+  font-family: "Overpass", sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+button:hover {
+  color: var(--Orange);
+  background-color: white;
+}
+
+.thank-you-icon {
+  background-image: url(./images/illustration-thank-you.svg);
+  width: 162px;
+  height: 108px;
+  background-position: center;
+  margin: 20px auto;
+}
+
+.selected-stars {
+  color: var(--Orange);
+  background-color: hsl(213, 10%, 21%);
+  width: 60%;
+  height: 40px;
+  border-radius: 24px;
+  margin: 20px auto;
+  text-align: center;
+  line-height: 40px;
+}
+
+.thank-you,
+.appreciation {
+  margin: 10px auto;
+  text-align: center;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
 }

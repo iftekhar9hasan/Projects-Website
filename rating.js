@@ -55,10 +55,12 @@ submitBtn.addEventListener("click", () => {
         body: JSON.stringify(reviewData)
     })
     .then(response => {
+        console.log("Response:", response);  // Log response for debugging
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     })
     .then(data => {
+        console.log("Data:", data);  // Log data for debugging
         showFeedbackMessage(data.message || 'Review saved successfully!', "success");
         displayReviews(); // Refresh the reviews after saving
         displayThankYouMessage(userRating); // Display the thank-you message

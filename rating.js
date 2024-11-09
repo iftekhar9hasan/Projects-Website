@@ -76,6 +76,8 @@ submitBtn.addEventListener("click", () => {
 
         document.getElementById("review").classList.add("hidden-after-submit");
         document.getElementById("stars").classList.add("hidden-after-submit");
+        document.getElementById("submit").classList.add("hidden-after-submit");
+        document.getElementById("p").classList.add("hidden-after-submit");
 
         displayReviews(); // Refresh the reviews after saving
     })

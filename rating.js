@@ -29,14 +29,15 @@ stars.forEach((star) => {
 });
 
 submitBtn.addEventListener("click", () => {
-    const review = reviewText.value.trim();
+    const review = reviewText.value.trim();  // Trim whitespace from the review
     const userRating = parseInt(rating.innerText);
 
     feedbackMessage.className = "hidden";
     feedbackMessage.innerText = "";
 
+    // Check if the rating is selected and review text is not empty or whitespace
     if (!userRating || !review) {
-        showFeedbackMessage("Please select a rating and provide a review before submitting.", "error");
+        showFeedbackMessage("Please select a rating and provide a meaningful review before submitting.", "error");
         return;
     }
 
@@ -53,29 +54,26 @@ submitBtn.addEventListener("click", () => {
         body: JSON.stringify(reviewData)
     })
     .then(response => {
-        console.log("Raw Response Status:", response.status);  // Log the status code
-        console.log("Raw Response Text:", response.statusText);  // Log the status text
-        return response.text();  // Get raw text to inspect what’s returned
-    })
-    .then(responseText => {
-        console.log("Full Response Body:", responseText);  // Log full response body
-        // Attempt to parse as JSON (if response is JSON)
-        try {
-            const data = JSON.parse(responseText);
-            showFeedbackMessage(data.message || 'Review saved successfully!', "success");
-            displayReviews();  // Refresh the reviews after saving
-            displayThankYouMessage(userRating);  // Display the thank-you message
-        } catch (error) {
-            // If JSON parsing fails, show response text directly (for debugging)
-            console.error("JSON Parse Error:", error);
-            showFeedbackMessage('Unexpected response format. Please check your backend response.', "error");
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        return response.json();
+    })
+    .then(data => {
+        if (data && data.message) {
+            showFeedbackMessage(data.message, "success");
+        } else {
+            showFeedbackMessage('Review saved successfully!', "success");
+        }
+        displayReviews();  // Refresh the reviews after saving
+        displayThankYouMessage(userRating);  // Display the thank-you message
     })
     .catch(error => {
         console.error('Error saving review:', error);
         showFeedbackMessage('There was an error saving your review. Please try again.', "error");
     });
 });
+
 
 
 function getStarColorClass(value) {

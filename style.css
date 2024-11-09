@@ -416,11 +416,20 @@ h1 {
   color: rgb(24, 159, 14);
 }
 
-textarea {
+/* textarea {
   width: 90%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+} */
+
+input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 6px 4px;
+  color: rgb(131, 23, 23);
+  font-size: 16px;
 }
 
 button {

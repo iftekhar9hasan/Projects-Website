@@ -53,7 +53,26 @@ submitBtn.addEventListener("click", () => {
         return response.json();
     })
     .then(data => {
-        alert(data.message || 'Review saved successfully!');
+        // alert(data.message || 'Review saved successfully!');
+        function showNotification(message) {
+            const notification = document.getElementById("feedbackMessage");
+            notification.innerText = message;
+            notification.classList.remove("hidden");
+            notification.classList.add("show");
+        
+            // Hide the notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove("show");
+                notification.classList.add("hidden");
+            }, 3000);
+        }
+        
+        // Use the function to show the notification
+        showNotification(data.message || 'Review saved successfully!');
+        
+
+
+
         displayReviews(); // Refresh the reviews after saving
     })
     .catch(error => {

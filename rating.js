@@ -41,7 +41,7 @@ submitBtn.addEventListener("click", () => {
     };
 
     // Send review data to the backend to save in S3
-    fetch('http://localhost:3000/save_review', {
+    fetch('https://projects-website-review.onrender.com/save_review', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ function getStarColorClass(value) {
 
 function displayReviews() {
     // Fetch reviews from the backend, which retrieves them from S3
-    fetch('http://localhost:3000/get_reviews')
+    fetch('https://projects-website-review.onrender.com/get_reviews')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();

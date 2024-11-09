@@ -370,7 +370,7 @@ footer p {
   align-items: center;
 }
 .container {
-  background-color: white;
+  /* background-color: white; */
   padding: 10px;
   text-align: center;
   width: 400px;

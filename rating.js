@@ -61,10 +61,10 @@ submitBtn.addEventListener("click", () => {
             notification.classList.add("show");
         
             // Hide the notification after 3 seconds
-            setTimeout(() => {
-                notification.classList.remove("show");
-                notification.classList.add("hidden");
-            }, 3000);
+            // setTimeout(() => {
+            //     notification.classList.remove("show");
+            //     notification.classList.add("hidden");
+            // }, 3000);
         }
         
         // Use the function to show the notification

@@ -21,12 +21,6 @@ function showNotification(message, type = 'success') {
     } else {
         notification.classList.add("success");
     }
-
-    // Hide notification after 3 seconds
-    setTimeout(() => {
-        notification.classList.remove("show");
-        notification.classList.add("hidden");
-    }, 3000);
 }
 
 stars.forEach((star) => {
@@ -79,6 +73,10 @@ submitBtn.addEventListener("click", () => {
     })
     .then(data => {
         showNotification(data.message || 'Review saved successfully!');
+
+        document.getElementById("review").classList.add("hidden-after-submit");
+        document.getElementById("stars").classList.add("hidden-after-submit");
+
         displayReviews(); // Refresh the reviews after saving
     })
     .catch(error => {

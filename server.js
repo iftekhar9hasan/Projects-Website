@@ -48,7 +48,7 @@ app.post('/save_review', async (req, res) => {
             ContentType: 'application/json'
         }).promise();
 
-        res.json({ message: 'Review saved!' });
+        res.json({ message: 'Review saved successfully!' });
     } catch (error) {
         console.error("Error saving review:", error); // Detailed error log
         res.status(500).json({ message: 'Error saving review' });

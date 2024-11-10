@@ -77,9 +77,9 @@ submitBtn.addEventListener("click", () => {
         console.log("Data received:", data);
         showNotification(data.message || 'Review saved successfully!');
         
-        document.getElementById("review").classList.add("hidden-after-submit");
-        document.getElementById("stars").classList.add("hidden-after-submit");
-        document.getElementById("submit").classList.add("hidden-after-submit");
+        // document.getElementById("review").classList.add("hidden-after-submit");
+        // document.getElementById("stars").classList.add("hidden-after-submit");
+        // document.getElementById("submit").classList.add("hidden-after-submit");
 
         displayReviews(); // Refresh the reviews after saving
     })

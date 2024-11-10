@@ -25,7 +25,6 @@ app.use(express.json());
 // Endpoint to save review to S3
 app.post('/save_review', async (req, res) => {
     const newReview = req.body;
-    console.log("Received review:", newReview); // Log the incoming review
 
     try {
         // Get the current reviews from S3
@@ -44,10 +43,9 @@ app.post('/save_review', async (req, res) => {
             ContentType: 'application/json'
         }).promise();
 
-        console.log("Review saved successfully!"); // Log successful save
         res.json({ message: 'Review saved!' });
     } catch (error) {
-        console.error("Error saving review:", error); // Log detailed error
+        console.error(error);
         res.status(500).json({ message: 'Error saving review' });
     }
 });

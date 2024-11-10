@@ -68,16 +68,18 @@ submitBtn.addEventListener("click", () => {
         body: JSON.stringify(reviewData)
     })
     .then(response => {
+        console.log("Response status:", response.status);
+        console.log("Response status text:", response.statusText);
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     })
     .then(data => {
+        console.log("Data received:", data);
         showNotification(data.message || 'Review saved successfully!');
-
+        
         document.getElementById("review").classList.add("hidden-after-submit");
         document.getElementById("stars").classList.add("hidden-after-submit");
         document.getElementById("submit").classList.add("hidden-after-submit");
-        // document.getElementById("share").classList.add("hidden-after-submit");
 
         displayReviews(); // Refresh the reviews after saving
     })

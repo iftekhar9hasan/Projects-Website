@@ -1,68 +1,105 @@
-const express = require('express');
-const AWS = require('aws-sdk');
-const cors = require('cors');
+const stars = document.querySelectorAll(".star");
+const rating = document.getElementById("rating");
+const reviewText = document.getElementById("review");
+const submitBtn = document.getElementById("submit");
+const reviewsContainer = document.getElementById("reviews");
 
-const app = express();
-const port = process.env.PORT || 3000; // Use PORT environment variable or default to 3000
+stars.forEach((star) => {
+    star.addEventListener("click", () => {
+        const value = parseInt(star.getAttribute("data-value"));
+        rating.innerText = value;
 
-// S3 bucket details
-const bucketName = 'nilaychowdhury'; 
-const fileName = 'reviews.json'; // The name of the file in S3
+        // Remove all existing classes from stars
+        stars.forEach((s) => s.classList.remove("one", "two", "three", "four", "five"));
 
-// Configure CORS for the specified origin
-app.use(cors({ origin: 'https://csc4110-group8.netlify.app/' }));
+        // Add the appropriate class to each star based on the selected star's value
+        stars.forEach((s, index) => {
+            if (index < value) {
+                s.classList.add(getStarColorClass(value));
+            }
+        });
 
-// Configure AWS SDK with hard-coded credentials
-const s3 = new AWS.S3({
-    accessKeyId: 'AKIA23WHT42ZWMFJTMGE',  
-    secretAccessKey: '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',  
-    region: 'us-east-2', 
+        // Remove "selected" class from all stars
+        stars.forEach((s) => s.classList.remove("selected"));
+        // Add "selected" class to the clicked star
+        star.classList.add("selected");
+    });
 });
 
-app.use(express.static(__dirname));
-app.use(express.json());
+submitBtn.addEventListener("click", () => {
+    const review = reviewText.value;
+    const userRating = parseInt(rating.innerText);
 
-// Endpoint to save review to S3
-app.post('/save_review', async (req, res) => {
-    const newReview = req.body;
-
-    try {
-        // Get the current reviews from S3
-        const data = await s3.getObject({ Bucket: bucketName, Key: fileName }).promise();
-        let reviews = [];
-        if (data.Body) reviews = JSON.parse(data.Body.toString());
-
-        // Add the new review
-        reviews.push(newReview);
-
-        // Upload the updated reviews to S3
-        await s3.putObject({
-            Bucket: bucketName,
-            Key: fileName,
-            Body: JSON.stringify(reviews, null, 2),
-            ContentType: 'application/json'
-        }).promise();
-
-        res.json({ message: 'Review saved!' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error saving review' });
+    if (!userRating || !review) {
+        alert("Please select a rating and provide a review before submitting.");
+        return;
     }
+
+    const reviewData = {
+        rating: userRating,
+        review: review
+    };
+
+    // Send review data to the backend to save in S3
+    fetch('https://projects-website-review.onrender.com/save_review', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reviewData)
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+    })
+    .then(data => {
+        alert(data.message || 'Review saved successfully!');
+        displayReviews(); // Refresh the reviews after saving
+    })
+    .catch(error => {
+        console.error('Error saving review:', error);
+        alert('There was an error saving your review. Please try again.');
+    });
 });
 
-// Endpoint to get reviews from S3
-app.get('/get_reviews', async (req, res) => {
-    try {
-        const data = await s3.getObject({ Bucket: bucketName, Key: fileName }).promise();
-        const reviews = JSON.parse(data.Body.toString());
-        res.json(reviews);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error retrieving reviews' });
+function getStarColorClass(value) {
+    switch (value) {
+        case 1:
+            return "one";
+        case 2:
+            return "two";
+        case 3:
+            return "three";
+        case 4:
+            return "four";
+        case 5:
+            return "five";
+        default:
+            return "";
     }
-});
+}
 
-// Start the server on the specified port
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+function displayReviews() {
+    // Fetch reviews from the backend, which retrieves them from S3
+    fetch('https://projects-website-review.onrender.com/get_reviews')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(reviews => {
+            reviewsContainer.innerHTML = ''; // Clear current reviews
+            reviews.forEach(review => {
+                const reviewElement = document.createElement("div");
+                reviewElement.classList.add("review");
+                reviewElement.innerHTML = `<p><strong>Rating: ${review.rating}/5</strong></p><p>${review.review}</p>`;
+                reviewsContainer.appendChild(reviewElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching reviews:', error);
+            alert('There was an error loading reviews. Please try again later.');
+        });
+}
+
+// Call displayReviews on page load to load the reviews from S3
+document.addEventListener('DOMContentLoaded', displayReviews);

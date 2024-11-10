@@ -10,7 +10,8 @@ const bucketName = 'nilaychowdhury';
 const fileName = 'reviews.json'; // The name of the file in S3
 
 // Configure CORS for the specified origin
-app.use(cors({ origin: 'https://csc4110-group8.netlify.app/' }));
+app.use(cors({ origin: 'https://csc4110-group8.netlify.app', credentials: true }));
+
 
 // Configure AWS SDK with hard-coded credentials
 const s3 = new AWS.S3({

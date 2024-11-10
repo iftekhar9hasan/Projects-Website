@@ -416,11 +416,11 @@ h1 {
   color: rgb(24, 159, 14);
 }
 
-.review-prompt {
+/* .review-prompt {
   font-size: 16px;
   color: #333;
   margin-bottom: 8px;
-}
+} */
 
 textarea {
   width: 90%;

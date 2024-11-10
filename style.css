@@ -369,8 +369,8 @@ footer p {
   justify-content: center;
   align-items: center;
 }
-.container {
-  /* background-color: white; */
+.containerOfReview {
+  background-color: none;
   padding: 10px;
   text-align: center;
   width: 400px;
@@ -423,6 +423,14 @@ textarea {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+/* textarea {
+  width: 90%;
+  padding: 10px;
+  border: 3px solid red;
+  border-radius: 4px;
+  box-sizing: border-box;
+} */
 
 /* #review input[type="text"] {
   width: 90%;

@@ -25,17 +25,21 @@ app.use(express.json());
 // Endpoint to save review to S3
 app.post('/save_review', async (req, res) => {
     const newReview = req.body;
+    console.log("Received review:", newReview); // Log incoming data
 
     try {
-        // Get the current reviews from S3
+        // Fetch current reviews
         const data = await s3.getObject({ Bucket: bucketName, Key: fileName }).promise();
         let reviews = [];
         if (data.Body) reviews = JSON.parse(data.Body.toString());
 
-        // Add the new review
+        // Append new review
         reviews.push(newReview);
 
-        // Upload the updated reviews to S3
+        // Log the updated reviews before saving
+        console.log("Updated reviews:", reviews);
+
+        // Save updated reviews to S3
         await s3.putObject({
             Bucket: bucketName,
             Key: fileName,
@@ -45,7 +49,7 @@ app.post('/save_review', async (req, res) => {
 
         res.json({ message: 'Review saved!' });
     } catch (error) {
-        console.error(error);
+        console.error("Error saving review:", error); // Detailed error log
         res.status(500).json({ message: 'Error saving review' });
     }
 });

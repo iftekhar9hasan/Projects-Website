@@ -82,7 +82,7 @@ submitBtn.addEventListener("click", () => {
         document.getElementById("submit").classList.add("hidden-after-submit");
         // document.getElementById("review-prompt").classList.add("hidden-after-submit");
         
-        displayReviews(); // Refresh the reviews after saving
+        displayReviews(); 
     })
     .catch(error => {
         console.error('Error saving review:', error);
@@ -108,14 +108,13 @@ function getStarColorClass(value) {
 }
 
 function displayReviews() {
-    // Fetch reviews from the backend, which retrieves them from S3
     fetch('https://projects-website-review.onrender.com/get_reviews')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
         })
         .then(reviews => {
-            reviewsContainer.innerHTML = ''; // Clear current reviews
+            reviewsContainer.innerHTML = ''; 
             reviews.forEach(review => {
                 const reviewElement = document.createElement("div");
                 reviewElement.classList.add("review");
@@ -129,5 +128,4 @@ function displayReviews() {
         });
 }
 
-// Call displayReviews on page load to load the reviews from S3
 document.addEventListener('DOMContentLoaded', displayReviews);

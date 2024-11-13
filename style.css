@@ -247,11 +247,11 @@ h3.title1 {
 }
 
 .btn-color-2 {
-  background: rgb(0, 255, 242);
+  background: #e6e5e9;
 }
 
 .btn-color-2:hover {
-  border: rgb(255, 255, 255) 0.1rem solid;
+  border: rgb(0, 0, 0) 0.1rem solid;
 }
 
 .btn-container {
@@ -416,35 +416,16 @@ h1 {
   color: rgb(24, 159, 14);
 }
 
-/* .review-prompt {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 8px;
-} */
-
-textarea {
-  width: 90%;
+#review {
+  background-color: #f0f0f0;
   padding: 10px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  resize: vertical;
+  color: #000;
 }
-
-/* textarea {
-  width: 90%;
-  padding: 10px;
-  border: 3px solid red;
-  border-radius: 4px;
-  box-sizing: border-box;
-} */
-
-/* #review input[type="text"] {
-  width: 90%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-} */
 
 button {
   background-color: #007bff;
@@ -498,4 +479,79 @@ feedbackMessage.error {
 
 .hidden-after-submit {
   display: none;
+}
+
+/* Modal Overlay */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* height: 100%; */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: rgb(145, 243, 223);
+  padding: 20px;
+  margin: 10% auto;
+  width: 50%;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 100px 40px 80px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+}
+
+.modal-content h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.modal-text {
+  font-size: 15px;
+  text-align: justify;
+  margin: 20px 0;
+}
+
+.modal-agreement {
+  font-size: 16px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.modal-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.back-button-container .btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.back-button-container .btn img {
+  width: 50px;
+  height: 50px;
+  fill: currentColor;
+}
+
+.descrption-proj {
+  margin-bottom: 20px;
+}
+
+.btn-container {
+  margin-top: 20px;
 }

@@ -137,8 +137,12 @@
   <div id="successMessage" style="display: none;"></div>
   
     <footer>
+      <div class="credit">
+        <p>Team: Sadman Ahmed ⍟ Iftekhar Hasan ⍟ Nilay Dash ⍟ Aniful Hasan ⍟ Hemayetul Chowdhury ⍟ Sowgata Barua </p>
+      </div>
+
       <div class="copyright">
-        <p>Copyright &#169; 2024 CSC4110 Group-8 Students at WSU. All Rights Reserved.</p>
+        <p>Copyright &#169; 2024 CSC4110 Group-8 Students at Wayne State University. All Rights Reserved.</p>
       </div>
     </footer>
   </section>
@@ -149,27 +153,6 @@
   <script src="app.js"></script>
 
   <script src="server.js"></script>
-
-
-  <script>
-    document.getElementById('downloadBtn').addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default download action
-  
-      // Show the custom modal
-      document.getElementById('customModal').style.display = 'block';
-    });
-  
-    document.getElementById('agreeBtn').addEventListener('click', function () {
-      // If the user agrees, trigger the download
-      document.getElementById('customModal').style.display = 'none'; // Close the modal
-      window.location.href = document.getElementById('downloadBtn').href; // Trigger the download
-    });
-  
-    document.getElementById('cancelBtn').addEventListener('click', function () {
-      // If the user cancels, close the modal
-      document.getElementById('customModal').style.display = 'none';
-    });
-  </script>
 
 
 

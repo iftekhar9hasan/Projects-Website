@@ -477,7 +477,7 @@ button:hover {
 }
 
 .notification.success {
-  background-color: #4caf50; /* Green for success */
+  background-color: #0a6dca; /* Green for success */
 }
 
 .notification.error {

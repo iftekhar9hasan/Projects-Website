@@ -5,23 +5,33 @@ const submitBtn = document.getElementById("submit");
 const reviewsContainer = document.getElementById("reviews");
 
 // Function to show styled notifications
-function showNotification(message, type = 'success') {
-    const notification = document.getElementById("feedbackMessage");
-    notification.innerText = message;
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = message;
 
-    // Clear previous classes and add "show" class
-    notification.classList.remove("hidden", "error", "warning", "success");
-    notification.classList.add("show");
+    document.body.appendChild(notification);
 
-    // Add type-specific class
-    if (type === 'error') {
-        notification.classList.add("error");
-    } else if (type === 'warning') {
-        notification.classList.add("warning");
-    } else {
-        notification.classList.add("success");
-    }
+    // Force reflow for the animation to work properly
+    notification.getBoundingClientRect();
+
+    notification.style.opacity = '1'; // Ensure it's visible initially
+
+    // To remove the notification manually, you can add a close button
+    const closeButton = document.createElement('button');
+    closeButton.innerHTML = '✖';
+    closeButton.className = 'notification-close';
+    notification.appendChild(closeButton);
+
+    closeButton.addEventListener('click', () => {
+        notification.style.opacity = '0'; // Start fade out
+        setTimeout(() => {
+            notification.remove();
+        }, 1000); // Remove notification after fade out completes
+    });
 }
+
+
 
 stars.forEach((star) => {
     star.addEventListener("click", () => {

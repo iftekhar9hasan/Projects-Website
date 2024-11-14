@@ -50,7 +50,7 @@ a,
   font-weight: 700;
 }
 
-.navbar a {
+/* .navbar a {
   font-size: 1.5rem;
   color: white;
   text-decoration: none;
@@ -65,7 +65,7 @@ a,
   background-color: #ffffff;
   color: #197dd4;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+} */
 
 #check {
   display: none;
@@ -225,14 +225,14 @@ h3.title1 {
 .btn {
   font-weight: 600;
   transition: all 300ms ease;
-  padding: 1rem;
+  padding: 0.5rem;
   width: 8rem;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
 }
 
 .btn-color-1,
 .btn-color-2 {
-  border: rgb(53, 53, 53) 0.1rem solid;
+  border: rgb(138, 19, 19) 0.1rem solid;
 }
 
 .btn-color-1:hover,
@@ -247,7 +247,7 @@ h3.title1 {
 }
 
 .btn-color-2 {
-  background: #e6e5e9;
+  background: #00ffff;
 }
 
 .btn-color-2:hover {
@@ -320,8 +320,8 @@ h3.title1 {
 
 .project-img {
   border-radius: 0.5rem;
-  width: 20%;
-  height: 20%;
+  width: 30%;
+  height: 30%;
 }
 
 .project-title {

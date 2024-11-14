@@ -473,15 +473,15 @@ button:hover {
 }
 
 .notification.warning {
-  background-color: #ffa726; /* Orange for warning */
+  background-color: #ffa726;
 }
 
 .notification.success {
-  background-color: #0a6dca; /* Green for success */
+  background-color: #0a6dca;
 }
 
 .notification.error {
-  background-color: #f44336; /* Red for error */
+  background-color: #f44336;
 }
 
 .hidden-after-submit {

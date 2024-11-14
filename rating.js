@@ -70,7 +70,8 @@ submitBtn.addEventListener("click", () => {
     };
 
     // Send review data to the backend to save in S3
-    fetch('https://projects-website-review.onrender.com/save_review', {
+    // fetch('https://projects-website-review.onrender.com/save_review', {
+    fetch('https://csc4110-group8.vercel.app/save_review', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -118,7 +119,7 @@ function getStarColorClass(value) {
 }
 
 function displayReviews() {
-    fetch('https://projects-website-review.onrender.com/get_reviews')
+    fetch('https://csc4110-group8.vercel.app/get_reviews')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();

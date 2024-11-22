@@ -119,9 +119,8 @@
   </form> -->
   <section id="contact">
     <h1 class="title">Contact Us</h1>
-    <form name="contact" method="POST" data-netlify="true">
+    <form name="contact" method="POST" data-netlify="true" id="contactForm">
         <div class="form-content">
-            <!-- Hidden Input for Netlify to Identify the Form -->
             <input type="hidden" name="form-name" value="contact">
 
             <div class="name">
@@ -138,6 +137,7 @@
             </div>
         </div>
     </form>
+    <p id="successMessage" style="display:none; color: green;">Your message has been sent successfully!</p>
 
   <div id="successMessage" style="display: none;"></div>
   
@@ -161,6 +161,25 @@
 
   <script src="server.js"></script>
 
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        const form = event.target;
+
+        // Send the form data to Netlify
+        fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(new FormData(form)).toString(),
+        })
+        .then(() => {
+            // Show success message and reset the form
+            document.getElementById("successMessage").style.display = "block";
+            form.reset();
+        })
+        .catch(error => alert("There was a problem submitting the form"));
+    });
+</script>
 
 
 // text section SIGNAL

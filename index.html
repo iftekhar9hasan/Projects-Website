@@ -98,25 +98,7 @@
     </section>
 
     
-  <!-- <section id="contact">
-    <h1 class="title">Contact Us</h1>
-    <form id="contactForm" action="https://formsubmit.co/csc4110group8@gmail.com"  method="POST">
-      <div class="form-content">
-          <input type="hidden" name="access_key" value="7f7cfbd7-3f21-4b37-a7fa-b64a3dfae803">
-          <div class="name">
-              <input type="text" name="name" placeholder="Your Name" required>
-          </div>
-          <div class="email">
-              <input type="text" name="email" placeholder="Your Email">
-          </div>
-          <div class="msg">
-            <textarea name="message" placeholder="Your Message" rows="4"></textarea>
-          </div>
-          <div class="submit">
-              <button type="submit">Send</button>
-          </div>
-      </div>
-  </form> -->
+
   <section id="contact">
     <h1 class="title">Contact Us</h1>
     <form name="contact" method="POST" data-netlify="true" id="contactForm">
@@ -163,7 +145,7 @@
 
   <script>
     document.getElementById("contactForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent the default form submission
+        event.preventDefault(); 
         const form = event.target;
 
         // Send the form data to Netlify
@@ -173,7 +155,6 @@
             body: new URLSearchParams(new FormData(form)).toString(),
         })
         .then(() => {
-            // Show success message and reset the form
             document.getElementById("successMessage").style.display = "block";
             form.reset();
         })

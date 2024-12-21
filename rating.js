@@ -4,30 +4,26 @@ const reviewText = document.getElementById("review");
 const submitBtn = document.getElementById("submit");
 const reviewsContainer = document.getElementById("reviews");
 
-// Function to show styled notifications
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.innerHTML = message;
 
     document.body.appendChild(notification);
-
-    // Force reflow for the animation to work properly
     notification.getBoundingClientRect();
 
-    notification.style.opacity = '1'; // Ensure it's visible initially
+    notification.style.opacity = '1'; 
 
-    // To remove the notification manually, you can add a close button
     const closeButton = document.createElement('button');
     closeButton.innerHTML = '✖';
     closeButton.className = 'notification-close';
     notification.appendChild(closeButton);
 
     closeButton.addEventListener('click', () => {
-        notification.style.opacity = '0'; // Start fade out
+        notification.style.opacity = '0'; 
         setTimeout(() => {
             notification.remove();
-        }, 1000); // Remove notification after fade out completes
+        }, 1000); 
     });
 }
 
@@ -37,20 +33,14 @@ stars.forEach((star) => {
     star.addEventListener("click", () => {
         const value = parseInt(star.getAttribute("data-value"));
         rating.innerText = value;
-
-        // Remove all existing classes from stars
         stars.forEach((s) => s.classList.remove("one", "two", "three", "four", "five"));
-
-        // Add the appropriate class to each star based on the selected star's value
         stars.forEach((s, index) => {
             if (index < value) {
                 s.classList.add(getStarColorClass(value));
             }
         });
 
-        // Remove "selected" class from all stars
         stars.forEach((s) => s.classList.remove("selected"));
-        // Add "selected" class to the clicked star
         star.classList.add("selected");
     });
 });
@@ -69,8 +59,6 @@ submitBtn.addEventListener("click", () => {
         review: review
     };
 
-    // Send review data to the backend to save in S3
-    // fetch('https://projects-website-review.onrender.com/save_review', {
     fetch('https://csc4110-group8.vercel.app/save_review', {
         method: 'POST',
         headers: {
@@ -91,7 +79,6 @@ submitBtn.addEventListener("click", () => {
         document.getElementById("review").classList.add("hidden-after-submit");
         document.getElementById("stars").classList.add("hidden-after-submit");
         document.getElementById("submit").classList.add("hidden-after-submit");
-        // document.getElementById("review-prompt").classList.add("hidden-after-submit");
         
         displayReviews(); 
     })

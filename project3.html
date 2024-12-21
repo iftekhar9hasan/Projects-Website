@@ -20,7 +20,6 @@
           <img src="assets/homeButton.svg" alt="Home" width="24" height="24" title="Home">
       </button>
     </div>
-  
     <h1 class="title">Project Three</h1>
     <div class="experience-details-container">
         <div class="experience-details-container">
@@ -29,44 +28,123 @@
                 <div class="article-container">
                   <img
                     src="./assets/Project_Sign_01.svg"
-                    alt="Project 3"
+                    alt="Project 2"
                     class="project-img"
                   />
                 </div>
-                <h2 class="experience-sub-title project-title">Project Three</h2>
-
-                <!-- <p class="descrption-proj">
+                <p class="descrption-proj">
                   To explore the project code, click the GitHub button 
                   <img src="assets/github-svj.svg" alt="GitHub" width="20" height="20" style="vertical-align: middle;">, 
                   and if you'd like to download it directly, click the Download button
                   <img src="assets/download-svg.svg" alt="Download" width="20" height="20" style="vertical-align: middle;">
-                </p> -->
-
-                <div class="text-container">
-                  <h2>This project is yet to be staerted... </h2>
-                </div>
-                <!-- <div class="btn-container">
+                </p>
+                <div class="btn-container">
                   <button
                     class="btn btn-color-2 project-btn"
-                    onclick="location.href='https://github.com/Sadman988/Group-Project-1---Identity-Manager'"
+                    onclick="location.href='https://github.com/'" title="GitHub"
                   >
                   <img src="assets/github-svj.svg" alt="Github" width="40" height="40" title="GitHub">
                   </button>
-                  <a href="assets/tttt" class="btn btn-color-2 project-btn" id="downloadBtn">
-                    <img src="assets/download-svg.svg" alt="Download" width="40" height="40" title="DOWNLOAD">
+                  <a href="" class="btn btn-color-2 project-btn" id="downloadBtn" title="Download">
+                    <img src="assets/download-svg.svg" alt="Download" width="40" height="40" title="Download">
                   </a>
                   
-                </div> -->
+                </div>
                 
+                <!-- Modal for custom acknowledgment -->
+                <div id="customModal" class="modal">
+                  <div class="modal-content">
+                      <h2>User Agreement</h2>
+                      <p class="modal-text">
+                          End User License Agreement (EULA) Data Privacy: Your personal data is kept secure, but Crosscut Landscaping is not responsible for security breaches beyond their control.<br><br>
+                          
+                          Sharing the Application: You cannot copy, share, sell, or distribute the application or its data without written permission from Crosscut Landscaping. Sharing login details or data is prohibited.<br><br>
+                          
+                          Using the App: You are not allowed to sell or distribute data from the app without permission. Misuse may lead to legal action.<br><br>
+                          
+                          Indemnity: You agree to protect Crosscut Landscaping from legal claims or damages caused by your use of the app. Crosscut Landscaping is not liable for security incidents.<br><br>
+                          
+                          Security Measures: Crosscut Landscaping regularly monitors for security vulnerabilities and may update practices as threats and technology evolve.<br><br>
+                          
+                          Compliance: The app adheres to industry security standards, which may change as laws and technology progress.<br><br>
+                          
+                          By using the app, you agree to the terms. If you disagree, you should stop using it.
+                      </p>
+                      <p class="modal-agreement">I agree to download the file.</p>
+                      <div class="modal-buttons">
+                          <button id="agreeBtn">I Agree</button>
+                          <button id="cancelBtn">Cancel</button>
+                      </div>
+                  </div>
+              </div>
                 
               </div>
     </div>
   </div>
+
+  
+  <!-- <div class="text-container">
+    <h2>Project 1 - Identity Manager </h2>
+    <p>
+      This Identity Manager project is a Python-based application designed to efficiently manage 
+      personal information. It's ideal for small-scale data management and serves as an excellent 
+      example of handling everyday tasks through this interactive applications.
+    </p>
+  </div>  -->
+  
+  <section id="userRate">
+    <div class="containerOfReview">
+        <h1>Rate your recent experience</h1>
+        <div class="rating">
+            <span id="rating">0</span>/5
+        </div>
+        <div class="stars" id="stars">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+        </div>
+       <textarea id="review"
+        placeholder="Write your review here" >
+        </textarea>
+        <button id="submit">Submit</button>
+        <div id="feedbackMessage" class="hidden"></div>
+        <div class="reviews" id="reviews">
+        </div>
+    </div>
+</section>
+
+<script src="rating.js"></script>
+  
+  
   
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
 <script src="app.js"></script>
+
+
+<script>
+  document.getElementById('downloadBtn').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default download action
+
+    // Show the custom modal
+    document.getElementById('customModal').style.display = 'block';
+  });
+
+  document.getElementById('agreeBtn').addEventListener('click', function () {
+    // If the user agrees, trigger the download
+    document.getElementById('customModal').style.display = 'none'; // Close the modal
+    window.location.href = document.getElementById('downloadBtn').href; // Trigger the download
+  });
+
+  document.getElementById('cancelBtn').addEventListener('click', function () {
+    // If the user cancels, close the modal
+    document.getElementById('customModal').style.display = 'none';
+  });
+</script>
+
 
 </body>
 </html>
